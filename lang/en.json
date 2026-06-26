@@ -1,0 +1,23 @@
+{
+  "pf2e-monster-sheet-sharing": {
+    "buttons": {
+      "shareSheet": "Share Monster Sheet"
+    },
+    "chat": {
+      "shareContent": "{link}"
+    },
+    "notifications": {
+      "shared": "{name} sheet shared."
+    },
+    "errors": {
+      "actorUnavailable": "The shared monster is no longer available.",
+      "gmOnly": "Only a GM can share monster sheets.",
+      "notRecipient": "You are not a recipient for this monster sheet.",
+      "npcOnly": "Only NPC sheets can be shared.",
+      "openFailed": "Unable to open the shared monster sheet.",
+      "requestTimedOut": "No GM responded to the monster sheet request.",
+      "shareExpired": "This monster sheet link is no longer available.",
+      "shareFailed": "Unable to share this monster sheet."
+    }
+  }
+}

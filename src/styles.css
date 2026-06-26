@@ -1,0 +1,14 @@
+.pf2e-monster-sheet-sharing {
+  --pf2e-monster-sheet-sharing-accent: #6b21a8;
+}
+.pf2e-monster-sheet-sharing__sheet-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+  margin: 0 0 0.5rem;
+  width: max-content;
+}
+
+.pf2e-monster-sheet-sharing__link {
+  cursor: pointer;
+}
