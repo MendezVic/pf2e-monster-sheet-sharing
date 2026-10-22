@@ -21,3 +21,4 @@ test/foundry-data/
 test-results/
 playwright-report/
 playwright/.cache/
+output

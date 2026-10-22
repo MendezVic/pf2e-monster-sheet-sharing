@@ -1,5 +1,5 @@
 import { LINK_DATA_ATTRIBUTE, MODULE_ID } from '@/constants';
-import { openSharedMonsterSheet } from '@/services/monsterShare';
+import { getMonsterShareLinkData, openSharedMonsterSheet } from '@/services/monsterShare';
 
 export function registerChatLinkHooks(): void {
   document.addEventListener('click', (event) => {
@@ -11,12 +11,13 @@ export function registerChatLinkHooks(): void {
 
     event.preventDefault();
     event.stopPropagation();
+    event.stopImmediatePropagation();
 
-    const shareId = link.getAttribute(LINK_DATA_ATTRIBUTE);
-    if (!shareId) return;
+    const linkData = getMonsterShareLinkData(link);
+    if (!linkData) return;
 
-    void openSharedMonsterSheet(shareId).catch((error) => {
+    void openSharedMonsterSheet(linkData.shareId, linkData.fallback).catch((error) => {
       ui.notifications.error(error instanceof Error ? error.message : game.i18n.localize(`${MODULE_ID}.errors.openFailed`));
     });
-  });
+  }, { capture: true });
 }

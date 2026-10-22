@@ -3,12 +3,10 @@
 // setup`, which symlinks back to the repo for live editing, this leaves a real, link-free
 // directory: assets and packs travel with it, so it works without the repo present. Run with
 // `npm run deploy`. Override the target with FOUNDRY_DATA, else it reuses .dev-paths.json.
-import {
-  existsSync, readFileSync, lstatSync, unlinkSync, rmSync, mkdirSync, cpSync, copyFileSync,
-} from 'node:fs';
+import { existsSync, readFileSync, lstatSync, unlinkSync, rmSync, mkdirSync, cpSync, copyFileSync } from 'node:fs';
 import { join, basename, dirname } from 'node:path';
 import { homedir } from 'node:os';
-import { execFileSync } from 'node:child_process';
+import { execSync } from 'node:child_process';
 
 const repo = process.cwd();
 const home = homedir();
@@ -45,9 +43,12 @@ if (!foundryData) {
 }
 
 console.log('Building…');
-execFileSync('npm', ['run', 'build'], { stdio: 'inherit', cwd: repo });
+execSync('npm run build', {
+  stdio: 'inherit',
+});
 
-const dest = join(foundryData, 'modules', ID);
+// const dest = join(foundryData, 'modules', ID);
+const dest = join(repo, 'output', ID);
 const existing = lstatSync(dest, { throwIfNoEntry: false });
 if (existing?.isSymbolicLink()) {
   unlinkSync(dest); // a dev/whole-repo symlink → replace with a real copy
@@ -86,7 +87,7 @@ for (const file of ['module.json', 'LICENSE', 'README.md']) {
 }
 copyDir('dist');
 copyDir('lang');
-copyDir('packs', (src) => basename(src) !== '_source' && keep(src)); // built LevelDB only, not JSON sources
+copyDir('packs', src => basename(src) !== '_source' && keep(src)); // built LevelDB only, not JSON sources
 copyDir('assets'); // scenes reference modules/<id>/assets/… — keep that path valid
 
 console.log(`\n✓ Deployed ${ID} → ${dest}`);

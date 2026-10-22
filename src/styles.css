@@ -1,14 +1,830 @@
-.pf2e-monster-sheet-sharing {
-  --pf2e-monster-sheet-sharing-accent: #6b21a8;
-}
 .pf2e-monster-sheet-sharing__sheet-button {
   align-items: center;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
   display: inline-flex;
-  gap: 0.35rem;
-  margin: 0 0 0.5rem;
-  width: max-content;
+  height: 1.25rem;
+  justify-content: center;
+  margin-inline-start: 0.35rem;
+  padding: 0;
+  vertical-align: middle;
+  width: 1.25rem;
+}
+
+.pf2e-monster-sheet-sharing__sheet-button:hover,
+.pf2e-monster-sheet-sharing__sheet-button:focus-visible {
+  text-shadow: 0 0 6px currentColor;
 }
 
 .pf2e-monster-sheet-sharing__link {
   cursor: pointer;
+}
+
+.pf2e-monster-sheet-sharing__rk-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.pf2e-monster-sheet-sharing__rk-field {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.pf2e-monster-sheet-sharing__rk-fieldset {
+  border: 1px solid var(--color-border-light-2, rgba(255, 255, 255, 0.16));
+  border-radius: 0.45rem;
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+}
+
+.pf2e-monster-sheet-sharing__rk-fieldset legend {
+  font-weight: 600;
+  padding: 0 0.25rem;
+}
+
+.pf2e-monster-sheet-sharing__rk-option-grid {
+  display: grid;
+  gap: 0.45rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pf2e-monster-sheet-sharing__rk-option,
+.pf2e-monster-sheet-sharing__rk-toggle {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  display: grid;
+  font-weight: 600;
+  gap: 0.3rem;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  min-height: 2.4rem;
+  padding: 0.45rem 0.55rem;
+  position: relative;
+  text-align: center;
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease;
+  user-select: none;
+}
+
+.pf2e-monster-sheet-sharing__rk-option--counted {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.pf2e-monster-sheet-sharing__rk-option--wide {
+  grid-column: 1 / -1;
+  justify-self: stretch;
+}
+
+.pf2e-monster-sheet-sharing__rk-option:hover,
+.pf2e-monster-sheet-sharing__rk-toggle:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.pf2e-monster-sheet-sharing__rk-option input[type='hidden'],
+.pf2e-monster-sheet-sharing__rk-toggle input {
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 1px;
+}
+
+.pf2e-monster-sheet-sharing__rk-option:focus-visible,
+.pf2e-monster-sheet-sharing__rk-option:focus-within,
+.pf2e-monster-sheet-sharing__rk-toggle:focus-within {
+  outline: 2px solid var(--color-warm-2, #b86b2b);
+  outline-offset: 2px;
+}
+
+.pf2e-monster-sheet-sharing__rk-option--selected {
+  background: rgba(183, 72, 42, 0.45);
+  border-color: var(--color-warm-2, #d08b47);
+  box-shadow: 0 0 0 1px rgba(255, 221, 154, 0.35), 0 0 12px rgba(208, 139, 71, 0.45);
+  color: var(--color-light-1, #fff4df);
+}
+
+.pf2e-monster-sheet-sharing__rk-option-label {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.35rem;
+  justify-content: center;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.pf2e-monster-sheet-sharing__rk-option-count {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+  display: inline-flex;
+  font-size: 0.78rem;
+  justify-content: center;
+  line-height: 1;
+  min-width: 1.45rem;
+  padding: 0.18rem 0.3rem;
+}
+
+.pf2e-monster-sheet-sharing__rk-count-button {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 3px;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 700;
+  height: 1.35rem;
+  justify-content: center;
+  line-height: 1;
+  min-height: 0;
+  padding: 0;
+  width: 1.35rem;
+}
+
+.pf2e-monster-sheet-sharing__rk-count-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.pf2e-monster-sheet-sharing__rk-count-button:disabled,
+.pf2e-monster-sheet-sharing__rk-option--capped {
+  cursor: not-allowed;
+}
+
+.pf2e-monster-sheet-sharing__rk-option--capped {
+  opacity: 0.45;
+}
+
+.pf2e-monster-sheet-sharing__rk-count-button:disabled {
+  opacity: 0.45;
+}
+
+.pf2e-monster-sheet-sharing__rk-option--disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.pf2e-monster-sheet-sharing__rk-option--disabled .pf2e-monster-sheet-sharing__rk-option-label {
+  text-decoration: line-through;
+}
+
+.pf2e-monster-sheet-sharing__rk-toggle {
+  justify-self: stretch;
+}
+
+.pf2e-monster-sheet-sharing__reset-discoveries {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.5rem;
+}
+
+.pf2e-monster-sheet-sharing__reset-discoveries p {
+  margin: 0;
+}
+
+.pf2e-monster-sheet-sharing__reset-discoveries-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+  justify-self: start;
+}
+
+.pf2e-monster-sheet-sharing__discovered-app,
+.pf2e-monster-sheet-sharing__discovered-app .window-content {
+  --pf2e-monster-share-bg: var(--color-cool-5, var(--color-bg, #1b1b1f));
+  --pf2e-monster-share-bg-base: #1b1b1f;
+  --pf2e-monster-share-panel-bg: var(--color-cool-4, var(--color-bg-alt, #25252b));
+  --pf2e-monster-share-panel-bg-base: #25252b;
+  --pf2e-monster-share-row-bg: var(--color-cool-5-75, var(--color-cool-4, #202026));
+  --pf2e-monster-share-row-bg-base: #202026;
+  --pf2e-monster-share-text: var(--color-light-1, var(--color-text-light-primary, #f4f1e8));
+  --pf2e-monster-share-muted-text: var(--color-light-3, var(--color-text-light-secondary, #d8d2c3));
+  --pf2e-monster-share-border: var(--color-cool-3, var(--color-border-dark, #55515f));
+  --pf2e-monster-share-strong-border: var(--color-warm-2, var(--color-border-highlight, #8f2222));
+  --pf2e-monster-share-header-bg: var(--color-warm-3, var(--pf2e-monster-share-strong-border));
+  --pf2e-monster-share-header-text: var(--color-light-1, var(--color-text-light-primary, #fff4df));
+  --pf2e-monster-share-control-bg: var(--color-cool-3, var(--pf2e-monster-share-panel-bg));
+  --pf2e-monster-share-chip-bg: var(--color-cool-3, #2b2931);
+  --pf2e-monster-share-chip-text: var(--color-light-1, var(--color-text-light-primary, #f4f1e8));
+  background: linear-gradient(var(--pf2e-monster-share-bg), var(--pf2e-monster-share-bg)), var(--pf2e-monster-share-bg-base) !important;
+  box-sizing: border-box;
+  opacity: 1 !important;
+}
+
+.pf2e-monster-sheet-sharing__discovered-app .window-content {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 100%;
+  padding: 0;
+}
+
+.pf2e-monster-sheet-sharing__discovered {
+  align-content: start;
+  background: linear-gradient(var(--pf2e-monster-share-bg), var(--pf2e-monster-share-bg)), var(--pf2e-monster-share-bg-base) !important;
+  box-sizing: border-box;
+  color: var(--pf2e-monster-share-text);
+  display: grid;
+  font-family: var(--font-primary, inherit);
+  gap: 0.65rem;
+  grid-template-columns: 190px minmax(0, 1fr);
+  min-height: 100%;
+  min-width: 0;
+  padding: 0.65rem;
+}
+
+.pf2e-monster-sheet-sharing__discovered-sidebar,
+.pf2e-monster-sheet-sharing__discovered-main {
+  min-width: 0;
+}
+
+.pf2e-monster-sheet-sharing__discovered-sidebar {
+  align-content: start;
+  display: grid;
+  gap: 0.45rem;
+  grid-auto-rows: max-content;
+  justify-items: stretch;
+}
+
+.pf2e-monster-sheet-sharing__portrait {
+  aspect-ratio: 1;
+  background: linear-gradient(var(--pf2e-monster-share-panel-bg), var(--pf2e-monster-share-panel-bg)), var(--pf2e-monster-share-panel-bg-base);
+  border: 1px solid var(--pf2e-monster-share-text);
+  height: auto;
+  object-fit: cover;
+  width: 100%;
+}
+
+.pf2e-monster-sheet-sharing__discovered-main {
+  align-content: start;
+  display: grid;
+  gap: 0.45rem;
+  grid-auto-rows: max-content;
+}
+
+.pf2e-monster-sheet-sharing__discovered-main-header {
+  align-items: start;
+  background: linear-gradient(var(--pf2e-monster-share-panel-bg), var(--pf2e-monster-share-panel-bg)), var(--pf2e-monster-share-panel-bg-base);
+  border-bottom: 1px solid var(--pf2e-monster-share-border);
+  display: grid;
+  gap: 0.35rem 0.55rem;
+  grid-template-columns: minmax(18rem, 1fr) max-content;
+  min-width: 0;
+  padding: 0.15rem 0 0.45rem;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-controls {
+  background: var(--pf2e-monster-share-control-bg);
+  border: 1px solid var(--pf2e-monster-share-border);
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.45rem;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-controls h2 {
+  color: var(--pf2e-monster-share-muted-text);
+  font-size: 0.78rem;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-list {
+  display: grid;
+  gap: 0.3rem;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  min-width: 0;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-row {
+  align-items: center;
+  background: var(--pf2e-monster-share-row-bg);
+  border: 1px solid var(--pf2e-monster-share-border);
+  color: var(--pf2e-monster-share-muted-text);
+  display: grid;
+  gap: 0.25rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 2rem;
+  padding: 0.25rem;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-row--counted {
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-row--revealed {
+  border-color: var(--pf2e-monster-share-strong-border);
+  color: var(--pf2e-monster-share-text);
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-width: 2.2rem;
+  text-align: center;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-button {
+  align-items: center;
+  background: var(--pf2e-monster-share-chip-bg);
+  border: 1px solid var(--pf2e-monster-share-border);
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  height: 1.45rem;
+  justify-content: center;
+  min-height: 0;
+  padding: 0;
+  width: 1.45rem;
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-button:hover:not(:disabled),
+.pf2e-monster-sheet-sharing__gm-reveal-button:focus-visible {
+  background: var(--pf2e-monster-share-header-bg);
+  border-color: var(--pf2e-monster-share-strong-border);
+  color: var(--pf2e-monster-share-header-text);
+}
+
+.pf2e-monster-sheet-sharing__gm-reveal-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.pf2e-monster-sheet-sharing__strategic-assessment {
+  border-top: 1px solid var(--pf2e-monster-share-border);
+  display: grid;
+  gap: 0.35rem;
+  padding-top: 0.4rem;
+}
+
+.pf2e-monster-sheet-sharing__strategic-assessment h3 {
+  color: var(--pf2e-monster-share-muted-text);
+  font-size: 0.72rem;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.pf2e-monster-sheet-sharing__strategic-assessment-list {
+  display: grid;
+  gap: 0.3rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-width: 0;
+}
+
+.pf2e-monster-sheet-sharing__strategic-assessment-button {
+  align-items: center;
+  background: var(--pf2e-monster-share-row-bg);
+  border: 1px solid var(--pf2e-monster-share-border);
+  color: var(--pf2e-monster-share-muted-text);
+  cursor: pointer;
+  display: inline-grid;
+  font-size: 0.78rem;
+  font-weight: 700;
+  gap: 0.35rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  justify-items: start;
+  min-height: 2rem;
+  padding: 0.3rem 0.45rem;
+  text-align: left;
+}
+
+.pf2e-monster-sheet-sharing__strategic-assessment-button span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf2e-monster-sheet-sharing__strategic-assessment-button:hover:not(:disabled),
+.pf2e-monster-sheet-sharing__strategic-assessment-button:focus-visible {
+  background: var(--pf2e-monster-share-header-bg);
+  border-color: var(--pf2e-monster-share-strong-border);
+  color: var(--pf2e-monster-share-header-text);
+}
+
+.pf2e-monster-sheet-sharing__strategic-assessment-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.pf2e-monster-sheet-sharing__title-group {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+  --pf2e-monster-sheet-sharing-title-inset: 0.35rem;
+}
+
+.pf2e-monster-sheet-sharing__title-group h1 {
+  background: var(--pf2e-monster-share-control-bg);
+  border: 0;
+  color: var(--pf2e-monster-share-muted-text);
+  font-family: var(--font-primary, inherit);
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: normal;
+  padding: 0.15rem var(--pf2e-monster-sheet-sharing-title-inset) 0.2rem;
+  text-transform: uppercase;
+  word-break: normal;
+}
+
+.pf2e-monster-sheet-sharing__title-meta {
+  display: grid;
+  gap: 0.22rem;
+  padding-inline-start: var(--pf2e-monster-sheet-sharing-title-inset);
+}
+
+.pf2e-monster-sheet-sharing__title-group p {
+  color: var(--pf2e-monster-share-muted-text);
+  margin: 0;
+}
+
+.pf2e-monster-sheet-sharing__empty {
+  color: var(--pf2e-monster-share-muted-text);
+  margin: 0.2rem 0 0;
+}
+
+.pf2e-monster-sheet-sharing__discovered-header-actions {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.45rem;
+  justify-self: end;
+  place-self: start end;
+}
+
+.pf2e-monster-sheet-sharing__creature-badge {
+  align-items: center;
+  color: var(--pf2e-monster-share-text);
+  display: flex;
+  font-family: var(--font-primary, inherit);
+  gap: 0.35rem;
+  justify-self: end;
+  line-height: 1;
+  max-width: 12rem;
+  min-width: max-content;
+  place-self: start end;
+  text-transform: uppercase;
+}
+
+.pf2e-monster-sheet-sharing__creature-badge span {
+  font-size: 1.55rem;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pf2e-monster-sheet-sharing__creature-badge strong {
+  background: var(--pf2e-monster-share-control-bg);
+  border-radius: 2px;
+  font-size: 2rem;
+  min-width: 2.3rem;
+  padding: 0.12rem 0.35rem;
+  text-align: center;
+}
+
+.pf2e-monster-sheet-sharing__trait-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pf2e-monster-sheet-sharing__trait-list .tag {
+  align-items: center;
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+
+.pf2e-monster-sheet-sharing__trait-list--compact {
+  align-items: center;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+  grid-column: auto;
+  margin: 0;
+}
+
+.pf2e-monster-sheet-sharing__trait-list--compact .tag {
+  font-size: 0.62rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.pf2e-monster-sheet-sharing__size-scale {
+  align-items: stretch;
+  display: grid;
+  gap: 0.18rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  height: 1.25rem;
+  list-style: none;
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+.pf2e-monster-sheet-sharing__size-scale li {
+  align-items: center;
+  border: 1px solid var(--pf2e-monster-share-border);
+  box-sizing: border-box;
+  color: var(--pf2e-monster-share-muted-text);
+  display: inline-flex;
+  font-size: 0.64rem;
+  font-weight: 700;
+  height: 1.25rem !important;
+  justify-content: center;
+  line-height: 1;
+  max-height: 1.25rem;
+  min-height: 0 !important;
+  overflow: hidden;
+  overflow-wrap: normal;
+  padding: 0 0.22rem;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  word-break: normal;
+}
+
+.pf2e-monster-sheet-sharing__size-scale-current {
+  background: var(--pf2e-monster-share-header-bg);
+  border-color: var(--pf2e-monster-share-header-text) !important;
+  color: var(--pf2e-monster-share-header-text) !important;
+}
+
+.pf2e-monster-sheet-sharing__discovered-tabs {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.pf2e-monster-sheet-sharing__tab-list {
+  border-bottom: 1px solid var(--pf2e-monster-share-border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.pf2e-monster-sheet-sharing__tab-button {
+  background: var(--pf2e-monster-share-control-bg);
+  border: 1px solid var(--pf2e-monster-share-border);
+  border-bottom: 0;
+  color: var(--pf2e-monster-share-muted-text);
+  cursor: pointer;
+  font-family: var(--font-primary, inherit);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  min-height: 1.75rem;
+  padding: 0.35rem 0.65rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pf2e-monster-sheet-sharing__tab-button:hover,
+.pf2e-monster-sheet-sharing__tab-button:focus-visible,
+.pf2e-monster-sheet-sharing__tab-button--active {
+  background: var(--pf2e-monster-share-header-bg);
+  border-color: var(--pf2e-monster-share-strong-border);
+  color: var(--pf2e-monster-share-header-text);
+}
+
+.pf2e-monster-sheet-sharing__tab-panels,
+.pf2e-monster-sheet-sharing__tab-panel {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.pf2e-monster-sheet-sharing__tab-panel[hidden] {
+  display: none;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section {
+  border: 1px solid var(--pf2e-monster-share-strong-border);
+  border-radius: 2px;
+  box-shadow: none;
+  color: var(--pf2e-monster-share-text);
+  overflow: hidden;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section h2 {
+  background: var(--pf2e-monster-share-header-bg);
+  border: 0;
+  color: var(--pf2e-monster-share-header-text);
+  font-family: var(--font-primary, inherit);
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0.34rem 0.5rem 0.28rem;
+  text-transform: uppercase;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section h2::before,
+.pf2e-monster-sheet-sharing__discovered-section h2::after,
+.pf2e-monster-sheet-sharing__discovered-section dt::before,
+.pf2e-monster-sheet-sharing__discovered-section dt::after,
+.pf2e-monster-sheet-sharing__discovered-section dd::before,
+.pf2e-monster-sheet-sharing__discovered-section dd::after {
+  content: none;
+  display: none;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section--compact {
+  border-color: var(--pf2e-monster-share-border);
+}
+
+.pf2e-monster-sheet-sharing__discovered-section--compact h2 {
+  background: var(--pf2e-monster-share-header-bg);
+  font-size: 0.82rem;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section dl {
+  display: grid;
+  gap: 0;
+  grid-template-columns: minmax(4.8rem, max-content) minmax(0, 1fr);
+  margin: 0;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section dt {
+  align-items: center;
+  background: linear-gradient(var(--pf2e-monster-share-row-bg), var(--pf2e-monster-share-row-bg)), var(--pf2e-monster-share-row-bg-base);
+  border-top: 1px solid var(--pf2e-monster-share-border);
+  box-sizing: border-box;
+  color: var(--pf2e-monster-share-text);
+  display: flex;
+  font-weight: 700;
+  line-height: 1.1;
+  min-height: 1.75rem;
+  padding: 0.28rem 0.45rem;
+  text-shadow: none;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section dd {
+  align-items: center;
+  background: linear-gradient(var(--pf2e-monster-share-row-bg), var(--pf2e-monster-share-row-bg)), var(--pf2e-monster-share-row-bg-base);
+  border-top: 1px solid var(--pf2e-monster-share-border);
+  box-sizing: border-box;
+  color: var(--pf2e-monster-share-text);
+  display: flex;
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+  min-height: 1.75rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 0.28rem 0.45rem;
+  text-shadow: none;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section--compact dl {
+  align-items: stretch;
+  grid-auto-rows: minmax(1.75rem, auto);
+  grid-template-columns: 5.45rem minmax(0, 1fr);
+}
+
+.pf2e-monster-sheet-sharing__discovered-section--compact dt,
+.pf2e-monster-sheet-sharing__discovered-section--compact dd {
+  align-self: stretch;
+  font-size: 0.78rem;
+  height: 100%;
+  line-height: 1.1;
+  min-height: 1.75rem;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section--compact dt {
+  justify-content: flex-start;
+  padding: 0 0.2rem 0 0.35rem;
+  white-space: nowrap;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section--compact dd {
+  justify-content: flex-start;
+  overflow-wrap: normal;
+  padding: 0 0.35rem;
+  word-break: normal;
+}
+
+.pf2e-monster-sheet-sharing__discovered-section--compact dd .pf2e-monster-sheet-sharing__trait-list {
+  align-self: center;
+  align-content: center;
+  align-items: center;
+  margin: 0 !important;
+  min-height: 0;
+  padding: 0 !important;
+}
+
+.pf2e-monster-sheet-sharing__discovered-item {
+  background: linear-gradient(var(--pf2e-monster-share-row-bg), var(--pf2e-monster-share-row-bg)), var(--pf2e-monster-share-row-bg-base);
+  border-top: 1px solid var(--pf2e-monster-share-border);
+  color: var(--pf2e-monster-share-text);
+  padding: 0;
+}
+
+.pf2e-monster-sheet-sharing__discovered-item summary {
+  border: 0;
+  color: var(--pf2e-monster-share-text);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0.6rem 0.55rem;
+  text-shadow: none;
+}
+
+.pf2e-monster-sheet-sharing__discovered-item summary:hover,
+.pf2e-monster-sheet-sharing__discovered-item summary:focus-visible {
+  background: var(--pf2e-monster-share-control-bg);
+}
+
+.pf2e-monster-sheet-sharing__discovered-item[open] summary {
+  border-bottom: 1px solid var(--pf2e-monster-share-border);
+}
+
+.pf2e-monster-sheet-sharing__item-description {
+  color: var(--pf2e-monster-share-text);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  padding: 0.55rem;
+  text-shadow: none;
+}
+
+.pf2e-monster-sheet-sharing__item-description p {
+  margin: 0.35rem 0;
+}
+
+.pf2e-monster-sheet-sharing__item-description a.content-link,
+.pf2e-monster-sheet-sharing__item-description a.inline-roll {
+  background: var(--pf2e-monster-share-chip-bg);
+  border: 0;
+  border-radius: 2px;
+  color: var(--pf2e-monster-share-chip-text);
+  font-weight: 700;
+  padding: 0 0.25rem;
+  white-space: normal;
+}
+
+.pf2e-monster-sheet-sharing__item-description :first-child {
+  margin-top: 0;
+}
+
+.pf2e-monster-sheet-sharing__item-description :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 680px) {
+  .pf2e-monster-sheet-sharing__discovered {
+    grid-template-columns: 1fr;
+  }
+
+  .pf2e-monster-sheet-sharing__discovered-main-header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pf2e-monster-sheet-sharing__creature-badge {
+    justify-self: start;
+  }
+
+  .pf2e-monster-sheet-sharing__discovered-sidebar {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+
+  .pf2e-monster-sheet-sharing__portrait {
+    height: 120px;
+    width: 120px;
+  }
+
+  .pf2e-monster-sheet-sharing__strategic-assessment-list {
+    grid-template-columns: 1fr;
+  }
 }

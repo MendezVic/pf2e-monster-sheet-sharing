@@ -6,15 +6,91 @@
     "chat": {
       "shareContent": "{link}"
     },
+    "discovered": {
+      "creature": "Creature",
+      "empty": "No information has been discovered about this creature yet.",
+      "gmControls": "GM Reveal Controls",
+      "saves": "Saves",
+      "strategicAssessment": {
+        "immunity": "One immunity",
+        "lowestSave": "Lowest save: {save}",
+        "resistance": "Highest resistance",
+        "title": "Strategic Assessment",
+        "weakness": "Highest weakness"
+      },
+      "subtitle": "Discovered creature information",
+      "tabs": {
+        "label": "Discovered information sections",
+        "overview": "Overview"
+      },
+      "title": "Discovered Monster Info"
+    },
+    "recallKnowledge": {
+      "title": "Recall Knowledge",
+      "prompt": "Choose what information to reveal about the target.",
+      "choiceLabel": "Information {number}",
+      "reasonRapidlyLabel": "Use Reason Rapidly (only one information choice)",
+      "reasonRapidlyWarning": "Reason Rapidly allows only one information choice.",
+      "duplicateWarning": "Choose two different types of information.",
+      "noMoreDiscoveries": "There is nothing more to discover about this creature.",
+      "buttons": {
+        "cancel": "Cancel",
+        "reveal": "Reveal"
+      },
+      "choices": {
+        "ac": "AC",
+        "action": "Action",
+        "attack": "Attack",
+        "fortitude": "Fortitude",
+        "hp": "HP",
+        "identity": "Identity",
+        "immunity": "Immunity",
+        "passive": "Passive",
+        "perception": "Perception",
+        "other": "Other",
+        "reflex": "Reflex",
+        "resistance": "Resistance",
+        "speed": "Speed",
+        "weakness": "Weakness",
+        "will": "Will"
+      },
+      "choiceCount": "Choose up to {count} information choices.",
+      "remaining": "{count} remaining"
+    },
     "notifications": {
       "shared": "{name} sheet shared."
     },
+    "settings": {
+      "recallKnowledgePrivate": {
+        "name": "Private Recall Knowledge rolls",
+        "hint": "Keep PF2e Recall Knowledge checks private by default. Disable this to make Recall Knowledge dialogs default to public roll visibility."
+      },
+      "recallKnowledgeDiscoveries": {
+        "name": "Recall Knowledge discoveries"
+      },
+      "resetRecallKnowledgeDiscoveries": {
+        "button": "Reset Discoveries",
+        "cancel": "Cancel",
+        "confirm": "Reset",
+        "confirmPrompt": "This will erase every Recall Knowledge discovery saved by this module for all creatures. This cannot be undone.",
+        "confirmTitle": "Reset Recall Knowledge Discoveries",
+        "done": "Recall Knowledge discoveries have been reset.",
+        "hint": "Erase all monster information the party has discovered through Recall Knowledge.",
+        "label": "Reset",
+        "name": "Reset Recall Knowledge Discoveries",
+        "prompt": "Erase all saved monster discoveries for the world.",
+        "title": "Reset Recall Knowledge Discoveries"
+      }
+    },
     "errors": {
       "actorUnavailable": "The shared monster is no longer available.",
+      "discoveredUnavailable": "The discovered monster information is no longer available.",
       "gmOnly": "Only a GM can share monster sheets.",
+      "invalidRecallKnowledgeChoice": "No valid Recall Knowledge information was selected.",
       "notRecipient": "You are not a recipient for this monster sheet.",
       "npcOnly": "Only NPC sheets can be shared.",
       "openFailed": "Unable to open the shared monster sheet.",
+      "readOnly": "Shared monster sheets are read-only.",
       "requestTimedOut": "No GM responded to the monster sheet request.",
       "shareExpired": "This monster sheet link is no longer available.",
       "shareFailed": "Unable to share this monster sheet."

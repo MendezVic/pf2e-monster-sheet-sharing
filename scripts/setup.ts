@@ -8,9 +8,7 @@
 //      modules/ whose entries symlink back to the repo (see scaffoldDevModule).
 // Resolved paths cache in .dev-paths.json (gitignored) so re-runs don't re-ask.
 // Flags: --reconfigure (ask again), --no-link (resolve+cache only), --yes (no prompts).
-import {
-  existsSync, symlinkSync, lstatSync, unlinkSync, readFileSync, writeFileSync, mkdirSync,
-} from 'node:fs';
+import { existsSync, symlinkSync, lstatSync, unlinkSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, basename, dirname } from 'node:path';
 import { homedir } from 'node:os';
 import { execFileSync } from 'node:child_process';
@@ -85,7 +83,7 @@ function userDataDirs(): string[] {
   if (process.platform === 'darwin') base = join(home, 'Library/Application Support');
   else if (process.platform === 'win32') base = process.env.LOCALAPPDATA ?? join(home, 'AppData/Local');
   else base = process.env.XDG_DATA_HOME ?? join(home, '.local/share');
-  return ['FoundryVTT-v14', 'FoundryVTT'].map((n) => join(base, n));
+  return ['FoundryVTT-v14', 'FoundryVTT'].map(n => join(base, n));
 }
 
 // The configured data dir lives in Config/options.json's `dataPath` (which may point
@@ -173,12 +171,17 @@ async function resolvePf2eSource(cfg: DevPaths): Promise<string | undefined> {
   return undefined;
 }
 
-// Windows can't make plain dir symlinks without admin; junctions need no privilege.
-const symlinkType = process.platform === 'win32' ? 'junction' : undefined;
+type LinkKind = 'file' | 'dir';
+
+function symlinkType(kind: LinkKind): 'file' | 'dir' | 'junction' | undefined {
+  // Windows can't make plain dir symlinks without admin; junctions need no privilege.
+  if (process.platform === 'win32' && kind === 'dir') return 'junction';
+  return kind;
+}
 
 // allowMissing lets us link dist/ before it's built — a dangling link that resolves once
 // `npm run build` (or the Vite dev server) produces it.
-function link(linkPath: string, target: string, allowMissing = false): void {
+function link(linkPath: string, target: string, kind: LinkKind, allowMissing = false): void {
   if (!allowMissing && !existsSync(target)) {
     console.log(`skip (missing target): ${basename(linkPath)} → ${target}`);
     return;
@@ -191,7 +194,7 @@ function link(linkPath: string, target: string, allowMissing = false): void {
     }
     unlinkSync(linkPath);
   }
-  symlinkSync(target, linkPath, symlinkType);
+  symlinkSync(target, linkPath, symlinkType(kind));
   console.log(`linked ${basename(linkPath)} → ${target}`);
 }
 
@@ -212,11 +215,10 @@ function scaffoldDevModule(modulesDir: string): void {
     return;
   }
   mkdirSync(dest, { recursive: true });
-  link(join(dest, 'module.json'), join(repo, 'module.json'));
-  link(join(dest, 'dist'), join(repo, 'dist'), true);
-  link(join(dest, 'lang'), join(repo, 'lang'));
-  link(join(dest, 'packs'), join(repo, 'packs'));
-  link(join(dest, 'assets'), join(repo, 'assets'));
+  link(join(dest, 'dist'), join(repo, 'dist'), 'dir', true);
+  link(join(dest, 'lang'), join(repo, 'lang'), 'dir');
+  link(join(dest, 'packs'), join(repo, 'packs'), 'dir');
+  link(join(dest, 'assets'), join(repo, 'assets'), 'dir');
   console.log(`scaffolded dev module → ${dest}`);
 }
 
@@ -254,10 +256,7 @@ async function resolveIdentity(): Promise<void> {
   }
   const finalAuthor = needsAuthor ? author || (await ask('  Author name for module.json (blank to skip):')) : undefined;
 
-  const changes = [
-    finalAuthor && `author = ${finalAuthor}`,
-    finalOrg && `owner = ${finalOrg}`,
-  ].filter(Boolean);
+  const changes = [finalAuthor && `author = ${finalAuthor}`, finalOrg && `owner = ${finalOrg}`].filter(Boolean);
   if (changes.length === 0) {
     console.log('  Left as placeholders.\n');
     return;
@@ -294,10 +293,10 @@ if (noLink) {
   rl?.close();
 } else {
   console.log('');
-  if (pf2eSource) link(join(repo, '_pf2e-source'), pf2eSource);
+  if (pf2eSource) link(join(repo, '_pf2e-source'), pf2eSource, 'dir');
   if (foundryData) {
-    link(join(repo, '_foundry-data'), foundryData);
-    link(join(repo, '_foundry-modules'), join(foundryData, 'modules'));
+    link(join(repo, '_foundry-data'), foundryData, 'dir');
+    link(join(repo, '_foundry-modules'), join(foundryData, 'modules'), 'dir');
     const modulesDir = join(foundryData, 'modules');
     if (existsSync(modulesDir)) scaffoldDevModule(modulesDir);
     else console.log(`skip (no modules dir): ${modulesDir}`);

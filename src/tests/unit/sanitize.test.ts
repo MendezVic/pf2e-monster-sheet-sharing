@@ -22,7 +22,7 @@ describe('sanitizeActorData', () => {
     expect(actor).not.toHaveProperty('ownership');
     expect(actor).not.toHaveProperty('folder');
     expect(actor.prototypeToken).toEqual({});
-    expect(actor.flags).toEqual({ 'pf2e-monster-sheet-sharing': { temporary: true } });
+    expect(actor.flags).toEqual({ 'pf2e-monster-sheet-sharing': { temporaryActor: true } });
   });
 
   it('removes mechanical combat data from public shares', () => {

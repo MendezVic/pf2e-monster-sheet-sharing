@@ -50,7 +50,7 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        assetFileNames: (asset) => {
+        assetFileNames: asset => {
           const name = asset.name ?? asset.names?.[0] ?? '';
           return name.endsWith('.css') ? `${id}.css` : '[name][extname]';
         },

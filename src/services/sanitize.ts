@@ -1,4 +1,4 @@
-import { MODULE_ID } from '@/constants';
+import { MODULE_ID, SOURCE_ACTOR_UUID_FLAG, TEMPORARY_ACTOR_FLAG } from '@/constants';
 
 export type InformationLevel = 'full' | 'public';
 export type ActorSourceLike = Record<string, unknown>;
@@ -6,6 +6,7 @@ export type ActorFilter = (source: ActorSourceLike, context: SanitizerContext) =
 
 export interface SanitizerContext {
   actorId?: string;
+  actorUuid?: string;
   level: InformationLevel;
   requesterId?: string;
 }
@@ -19,7 +20,7 @@ export function sanitizeActorData(
 ): ActorSourceLike {
   const source = foundry.utils.deepClone(actorSource) as ActorSourceLike;
   stripWorldIdentity(source);
-  markTemporaryShare(source);
+  markTemporaryShare(source, context.actorUuid);
 
   if (context.level === 'public') sanitizePublicActor(source);
 
@@ -40,10 +41,11 @@ function stripWorldIdentity(source: ActorSourceLike): void {
   }
 }
 
-function markTemporaryShare(source: ActorSourceLike): void {
+function markTemporaryShare(source: ActorSourceLike, actorUuid?: string): void {
   const flags = (source.flags ??= {}) as Record<string, unknown>;
   const moduleFlags = (flags[MODULE_ID] ??= {}) as Record<string, unknown>;
-  moduleFlags.temporary = true;
+  moduleFlags[TEMPORARY_ACTOR_FLAG] = true;
+  if (actorUuid) moduleFlags[SOURCE_ACTOR_UUID_FLAG] = actorUuid;
 }
 
 function sanitizePublicActor(source: ActorSourceLike): void {
@@ -84,7 +86,7 @@ function removePath(source: Record<string, unknown>, path: string[]): void {
 
   let current: Record<string, unknown> | undefined = source;
   for (const segment of path.slice(0, -1)) {
-    const next = current?.[segment];
+    const next: unknown = current?.[segment];
     if (!isRecord(next)) return;
     current = next;
   }
